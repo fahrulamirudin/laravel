@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Candidate extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'year',
+        'cretated_by',
+        'updated_by',
+        'deleted_by'
+    ];
+    public function job()
+    {
+        return $this->hasOne(Job::class);
+    }
 }
