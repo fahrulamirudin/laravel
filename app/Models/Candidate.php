@@ -9,6 +9,7 @@ class Candidate extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'job_id',
         'name',
         'email',
         'phone',
