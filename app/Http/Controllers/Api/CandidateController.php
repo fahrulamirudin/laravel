@@ -50,8 +50,8 @@ class CandidateController extends Controller
         $validator = Validator::make($request->all(), [
             'job_id'   => 'required',
             'name'   => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric|digits_between:10,13',
             'year' => 'required',
             'skillsets' => 'required',
         ]);
@@ -83,10 +83,12 @@ class CandidateController extends Controller
             'year'   => $request->year,
         ]);
         $request_skills = $request->skillsets;
+        $uniq_skills=array_unique($request_skills);
         //success save to database
         if ($model) {
-            foreach ($request_skills as $skill) :
-                $skillSets = SkillSet::create([
+            $skillSets=array();
+            foreach ($uniq_skills as $skill) :
+                $skillSets[] = SkillSet::create([
                     'candidate_id' => $model->id,
                     'skill_id' => $skill,
                 ]);
